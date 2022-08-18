@@ -44,11 +44,7 @@ function getPost($identifier)
 
 function dbConnect()
 {
-    try {
-        $database = new PDO('mysql:host=localhost;dbname=oc4;charset=utf8', 'root', 'root');
+    $database = new PDO('mysql:host=localhost;dbname=oc4;charset=utf8', 'root', 'root');
 
-        return $database;
-    } catch (Exception $e) {
-        die('Erreur : ' . $e->getMessage());
-    }
+    return $database;
 }
