@@ -36,8 +36,6 @@
         </div>
     <?php
     }
-    // Fin de la boucle des billets
-    $statement->closeCursor();
     ?>
 </body>
 
