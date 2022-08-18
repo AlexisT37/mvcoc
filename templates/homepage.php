@@ -12,28 +12,17 @@
     <p>Derniers billets du blog :</p>
 
     <?php
-    //we loop through the posts array
     foreach ($posts as $post) {
     ?>
-
-        <!-- this is a html part that is displayed for each post -->
         <div class="news">
             <h3>
-                <!-- there we have the title and the date of the post -->
-                <!-- htmlspecialchars for the  -->
-
-                <!-- use ?= when there is only an echo -->
                 <?= htmlspecialchars($post['title']); ?>
-                <em>le <?= $post['frenchCreationDate']; ?></em>
+                <em>le <?= $post['french_creation_date']; ?></em>
             </h3>
             <p>
-                <?php
-                // we display the content of the post
-                //nl2br for the new line
-                echo nl2br(htmlspecialchars($post['content']));
-                ?>
+                <?= nl2br(htmlspecialchars($post['content'])); ?>
                 <br />
-                <em><a href="#">Commentaires</a></em>
+                <em><a href="post.php?id=<?= urlencode($post['identifier']) ?>">Commentaires</a></em>
             </p>
         </div>
     <?php
