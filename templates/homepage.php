@@ -19,7 +19,8 @@ foreach ($posts as $post) { /* <!-- loops through the posts to display them --> 
             <?= nl2br(htmlspecialchars($post['content'])); ?>
             <br />
             <!-- comments with the id of the post -->
-            <em><a href="post.php?id=<?= urlencode($post['identifier']) ?>">Commentaires</a></em>
+            <!-- now we use a different adress to get to the comments, we use the action post and there is a & for the id -->
+            <em><a href="index.php?action=post&id=<?= urlencode($post['identifier']) ?>">Commentaires</a></em>
         </p>
     </div>
 <?php
