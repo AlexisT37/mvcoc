@@ -21,8 +21,10 @@
             <h3>
                 <!-- there we have the title and the date of the post -->
                 <!-- htmlspecialchars for the  -->
-                <?php echo htmlspecialchars($post['title']); ?>
-                <em>le <?php echo $post['frenchCreationDate']; ?></em>
+
+                <!-- use ?= when there is only an echo -->
+                <?= htmlspecialchars($post['title']); ?>
+                <em>le <?= $post['frenchCreationDate']; ?></em>
             </h3>
             <p>
                 <?php

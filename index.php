@@ -9,7 +9,6 @@
    //ve call the function required in model.php
    $posts = getPosts();
    require('templates/homepage.php');
-   ?>
 
 
-
+   //remove the closing php tag when there's only php

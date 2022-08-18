@@ -9,7 +9,7 @@ function getPosts()
     }
 
     // We retrieve the last 5 posts in the database using the pdo query.
-    $statement = $database->query("SELECT id, titre, contenu, DATE_FORMAT(date_creation, '%d/%m/%Y à %Hh%imin%ss') AS date_creation_fr FROM billets ORDER BY date_creation DESC LIMIT 0, 5");
+    $statement = $database->query("SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS date_creation_fr FROM billets ORDER BY creation_date DESC LIMIT 0, 5");
 
     //we create an empty array
     $posts = [];
@@ -18,8 +18,8 @@ function getPosts()
     while ($row = $statement->fetch()) {
         //we assing each row to the array
         $post = [
-            'title' => $row['titre'],
-            'content' => $row['contenu'],
+            'title' => $row['title'],
+            'content' => $row['content'],
             'frenchCreationDate' => $row['date_creation_fr'],
         ];
         //we push the array to the posts array
