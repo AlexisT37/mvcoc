@@ -1,4 +1,11 @@
 <?php
+class Post
+{
+    public string $author;
+    public string $title;
+    public string $content;
+    public string $identifier;
+}
 
 function getPosts()
 {
@@ -8,12 +15,12 @@ function getPosts()
     );
     $posts = [];
     while (($row = $statement->fetch())) {
-        $post = [
-            'title' => $row['title'],
-            'french_creation_date' => $row['french_creation_date'],
-            'content' => $row['content'],
-            'identifier' => $row['id'],
-        ];
+        $post = new Post();
+        $post->title = $row['title'];
+        $post->content = $row['content'];
+        $post->french_creation_date = $row['french_creation_date'];
+        $post->identifier = $row['id'];
+
 
         $posts[] = $post;
     }
