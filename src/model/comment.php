@@ -7,7 +7,6 @@ class Comment
     public string $comment;
 }
 
-//lock the return type to secure
 function getComments(string $post): array
 {
     $database = commentDbConnect();
@@ -18,12 +17,10 @@ function getComments(string $post): array
 
     $comments = [];
     while (($row = $statement->fetch())) {
-        //add characteristics of the comment as object attributes
         $comment = new Comment();
         $comment->author = $row['author'];
         $comment->frenchCreationDate = $row['french_creation_date'];
         $comment->comment = $row['comment'];
-
 
         $comments[] = $comment;
     }
