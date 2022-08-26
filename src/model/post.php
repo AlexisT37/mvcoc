@@ -10,8 +10,12 @@ class Post
 
 class PostRepository
 {
+    //the functions are inside the repository class
+    //it has a property database
+    //either it's a pdo or it's null
     public ?PDO $database = null;
 
+    //this function spits a post
     public function getPost(string $identifier): Post
     {
         $this->dbConnect();
@@ -30,6 +34,7 @@ class PostRepository
         return $post;
     }
 
+    //function to get all the posts
     public function getPosts(): array
     {
         $this->dbConnect();
@@ -38,6 +43,8 @@ class PostRepository
         );
         $posts = [];
         while (($row = $statement->fetch())) {
+            //every post is an instance of the post class,
+            //and every carac of the post is an attribute of the class
             $post = new Post();
             $post->title = $row['title'];
             $post->frenchCreationDate = $row['french_creation_date'];
@@ -46,7 +53,7 @@ class PostRepository
 
             $posts[] = $post;
         }
-
+        //we put every Post instance in an array of Posts
         return $posts;
     }
 

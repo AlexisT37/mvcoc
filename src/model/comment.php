@@ -1,5 +1,6 @@
 <?php
 
+//class for a comment
 class Comment
 {
     public string $author;
@@ -7,8 +8,10 @@ class Comment
     public string $comment;
 }
 
+
 function getComments(string $post): array
 {
+    //call to the database
     $database = commentDbConnect();
     $statement = $database->prepare(
         "SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS french_creation_date FROM comments WHERE post_id = ? ORDER BY comment_date DESC"
