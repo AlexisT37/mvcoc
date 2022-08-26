@@ -1,5 +1,6 @@
 <?php
-
+//use the database class
+require_once('src/lib/database.php');
 class Post
 {
     public string $title;
@@ -13,13 +14,16 @@ class PostRepository
     //the functions are inside the repository class
     //it has a property database
     //either it's a pdo or it's null
-    public ?PDO $database = null;
+    // public ?PDO $database = null;
+
+    //we don't use the database like above anymore, we use the db object
+    public DatabaseConnection $connection;
 
     //this function spits a post
     public function getPost(string $identifier): Post
     {
-        $this->dbConnect();
-        $statement = $this->database->prepare(
+        //instead of using the database property, we use the DATABASECONNECTION property
+        $statement = $this->connection->getConnection()->prepare(
             "SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS french_creation_date FROM posts WHERE id = ?"
         );
         $statement->execute([$identifier]);
@@ -37,8 +41,8 @@ class PostRepository
     //function to get all the posts
     public function getPosts(): array
     {
-        $this->dbConnect();
-        $statement = $this->database->query(
+        //instead of using the database property, we use the DATABASECONNECTION property
+        $statement = $this->connection->getConnection()->query(
             "SELECT id, title, content, DATE_FORMAT(creation_date, '%d/%m/%Y à %Hh%imin%ss') AS french_creation_date FROM posts ORDER BY creation_date DESC LIMIT 0, 5"
         );
         $posts = [];
@@ -57,10 +61,5 @@ class PostRepository
         return $posts;
     }
 
-    public function dbConnect()
-    {
-        if ($this->database === null) {
-            $this->database = new PDO('mysql:host=localhost;dbname=oc4;charset=utf8', 'root', 'root');
-        }
-    }
+    //we removed the function dbconnect because it's done in the db class
 }
