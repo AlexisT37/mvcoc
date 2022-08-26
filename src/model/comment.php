@@ -1,4 +1,7 @@
 <?php
+//use the database
+require_once('src/lib/database.php');
+
 
 //class for a comment
 class Comment
@@ -11,8 +14,10 @@ class Comment
 
 function getComments(string $post): array
 {
-    $database = commentDbConnect();
-    $statement = $database->prepare(
+    $database = new DatabaseConnection();
+
+    //use database connection
+    $statement = $database->getConnection()->prepare(
         "SELECT id, author, comment, DATE_FORMAT(comment_date, '%d/%m/%Y à %Hh%imin%ss') AS french_creation_date FROM comments WHERE post_id = ? ORDER BY comment_date DESC"
     );
     $statement->execute([$post]);
@@ -32,8 +37,9 @@ function getComments(string $post): array
 
 function createComment(string $post, string $author, string $comment)
 {
-    $database = commentDbConnect();
-    $statement = $database->prepare(
+    $database = new DatabaseConnection();
+
+    $statement = $database->getConnection()->prepare(
         'INSERT INTO comments(post_id, author, comment, comment_date) VALUES(?, ?, ?, NOW())'
     );
     $affectedLines = $statement->execute([$post, $author, $comment]);
@@ -41,9 +47,4 @@ function createComment(string $post, string $author, string $comment)
     return ($affectedLines > 0);
 }
 
-function commentDbConnect()
-{
-    $database = new PDO('mysql:host=localhost;dbname=oc4;charset=utf8', 'root', 'root');
-
-    return $database;
-}
+//function dbconect removed
