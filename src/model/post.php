@@ -1,4 +1,8 @@
 <?php
+
+//namespace to avoid overrides with class names
+namespace Application\Model\Post;
+
 //use the database class
 require_once('src/lib/database.php');
 class Post
@@ -17,7 +21,10 @@ class PostRepository
     // public ?PDO $database = null;
 
     //we don't use the database like above anymore, we use the db object
-    public DatabaseConnection $connection;
+
+    //we use the antislash so that the class declaration can understand the namespace
+    //the full name of this class is Application\Model\Post\DatabaseConnection
+    public \DatabaseConnection $connection;
 
     //this function spits a post
     public function getPost(string $identifier): Post
